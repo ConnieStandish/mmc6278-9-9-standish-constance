@@ -3,23 +3,35 @@ const weatherSection = document.getElementById('weather')
 
 const form = document.querySelector('form')
 
-form.onsubmit = function(e) {
+form.onsubmit = async function(e) {
     e.preventDefault()
     const userLocation = form.search.value
-    const URL = "https://api.openweathermap.org/data/2.5/weather?q=" + userLocation + "&units=imperial&appid=cbf6a4540c5e167330be7dd558d11f9a"
-    if (!userLocation) return
     form.search.value = ""
-    fetch(URL)
-    .then(function(response) {
-        if (response.status !== 200) {
-            throw new Error ('Location not found')
-        }
-        return response.json()
-    })
-    .then(function(weather){
-        console.log(weather)
-        weatherSection.innerHTML = ""
+    weatherSection.innerHTML = ""
+    try {
+        const URL = await fetch (`https://api.openweathermap.org/data/2.5/weather?q=${userLocation}&units=imperial&appid=cbf6a4540c5e167330be7dd558d11f9a`)
+        if (!userLocation) return
         
+            if (response.status !== 200) throw new Error ('Location not found')
+            
+        const weather = await response.json()
+        renderWeatherData(weather)
+    } catch (err) {
+        const errMessage = document.createElement('h2')
+        errMessage.innerHTML = err.message
+        weatherSection.appendChild(errMessage)
+    }
+    
+    // console.log(weather)
+}
+
+function lineBreaks() {
+    const p = document.createElement('p')
+    p.innerHTML = '&nbsp'
+    weatherSection.appendChild(p)
+}
+
+function renderWeatherData() {
     const locHeader = document.createElement('h2')
     locHeader.textContent = weather.name + ', ' + weather.sys.country
     weatherSection.appendChild(locHeader)
@@ -66,18 +78,4 @@ form.onsubmit = function(e) {
     const lastUpdate = document.createElement('p')
     lastUpdate.textContent = 'Last updated: ' + timeString
     weatherSection.appendChild(lastUpdate)
-    })
-
-    .catch(function(err) {
-    weatherSection.innerHTML = ""
-    const errMessage = document.createElement('h2')
-    errMessage.innerHTML = err.message
-    weatherSection.appendChild(errMessage)
-    })
-}
-
-function lineBreaks() {
-    const p = document.createElement('p')
-    p.innerHTML = '&nbsp'
-    weatherSection.appendChild(p)
-}
+    }
