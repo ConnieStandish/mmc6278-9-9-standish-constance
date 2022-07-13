@@ -3,7 +3,7 @@ const weatherSection = document.getElementById('weather')
 
 const form = document.querySelector('form')
 
-form.onsubmit = async function(e) {
+form.onsubmit = async e => {
     e.preventDefault()
     const userLocation = form.search.value
     form.search.value = ""
@@ -21,9 +21,11 @@ form.onsubmit = async function(e) {
         errMessage.innerHTML = err.message
         weatherSection.appendChild(errMessage)
     }
+}
+   
     
     // console.log(weather)
-}
+
 
 function lineBreaks() {
     const p = document.createElement('p')
