@@ -16,6 +16,7 @@ form.onsubmit = async e => {
             
         const weather = await response.json()
         renderWeatherData(weather)
+        console.log(weather)
     } catch (err) {
         const errMessage = document.createElement('h2')
         errMessage.innerHTML = err.message
@@ -24,7 +25,7 @@ form.onsubmit = async e => {
 }
    
     
-    // console.log(weather)
+    
 
 
 function lineBreaks() {
@@ -34,9 +35,9 @@ function lineBreaks() {
 }
 
 function renderWeatherData(weather) {
-    const locHeader = document.createElement('h2')
-    locHeader.textContent = weather.name + ', ' + weather.sys.country
-    weatherSection.appendChild(locHeader)
+    // const locHeader = document.createElement('h2')
+    weatherSection.innerHTML = `<h2>${weather.name + ', ' + weather.sys.country}</h2>`
+    // weatherSection.appendChild(locHeader)
 
     const googleMaps = document.createElement('a')
     const lat = weather.coord.lat
