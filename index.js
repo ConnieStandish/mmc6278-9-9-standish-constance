@@ -9,7 +9,7 @@ form.onsubmit = async e => {
     form.search.value = ""
     weatherSection.innerHTML = ""
     try {
-        const URL = await fetch (`https://api.openweathermap.org/data/2.5/weather?q=${userLocation}&units=imperial&appid=cbf6a4540c5e167330be7dd558d11f9a`)
+        const response = await fetch (`https://api.openweathermap.org/data/2.5/weather?q=${userLocation}&units=imperial&appid=cbf6a4540c5e167330be7dd558d11f9a`)
         if (!userLocation) return
         
             if (response.status !== 200) throw new Error ('Location not found')
@@ -35,12 +35,12 @@ function lineBreaks() {
 
 function renderWeatherData() {
     const locHeader = document.createElement('h2')
-    locHeader.textContent = weather.name + ', ' + weather.sys.country
+    locHeader.textContent = weather.name + ', ' + weather.country
     weatherSection.appendChild(locHeader)
 
     const googleMaps = document.createElement('a')
-    const lat = weather.coord.lat
-    const lon = weather.coord.lon
+    const lat = weather.lat
+    const lon = weather.lon
     googleMaps.href = 'https://www.google.com/maps/search/?api=1&query=' + lat + ',' + lon
     googleMaps.textContent = 'Click to view map'
     weatherSection.appendChild(googleMaps)
