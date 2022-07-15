@@ -35,12 +35,12 @@ function lineBreaks() {
 
 function renderWeatherData() {
     const locHeader = document.createElement('h2')
-    locHeader.textContent = weather.name + ', ' + weather.country
+    locHeader.textContent = weather.name + ', ' + weather.sys.country
     weatherSection.appendChild(locHeader)
 
     const googleMaps = document.createElement('a')
-    const lat = weather.lat
-    const lon = weather.lon
+    const lat = weather.coord.lat
+    const lon = weather.coord.lon
     googleMaps.href = 'https://www.google.com/maps/search/?api=1&query=' + lat + ',' + lon
     googleMaps.textContent = 'Click to view map'
     weatherSection.appendChild(googleMaps)
