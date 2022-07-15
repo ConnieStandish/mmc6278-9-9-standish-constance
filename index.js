@@ -8,11 +8,11 @@ form.onsubmit = async e => {
     const userLocation = form.search.value
     form.search.value = ""
     weatherSection.innerHTML = ""
+    if (!userLocation) return
     try {
         const response = await fetch (`https://api.openweathermap.org/data/2.5/weather?q=${userLocation}&units=imperial&appid=cbf6a4540c5e167330be7dd558d11f9a`)
-        if (!userLocation) return
         
-            if (response.status !== 200) throw new Error ('Location not found')
+        if (response.status !== 200) throw new Error ('Location not found')
             
         const weather = await response.json()
         renderWeatherData(weather)
@@ -33,7 +33,7 @@ function lineBreaks() {
     weatherSection.appendChild(p)
 }
 
-function renderWeatherData() {
+function renderWeatherData(weather) {
     const locHeader = document.createElement('h2')
     locHeader.textContent = weather.name + ', ' + weather.sys.country
     weatherSection.appendChild(locHeader)
