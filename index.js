@@ -24,13 +24,14 @@ form.onsubmit = async e => {
     }
 }
 
-function lineBreaks() {
+const lineBreaks = () => {
     const p = document.createElement('p')
     p.innerHTML = '&nbsp'
     weatherSection.appendChild(p)
 }
 
-function renderWeatherData(weather) {
+const renderWeatherData = (weather) => {
+
     weatherSection.innerHTML = `<h2>${weather.name}, ${weather.sys.country}</h2>`
 
     const googleMaps = document.createElement('a')
@@ -44,7 +45,7 @@ function renderWeatherData(weather) {
     weatherSection.appendChild(icon)
 
     const description = document.createElement('p')
-    description.textContent = weather.weather[0].description
+    description.textContent = `${weather.weather[0].description}\n`
     description.style.textTransform = 'capitalize'
     weatherSection.appendChild(description)
     lineBreaks()
