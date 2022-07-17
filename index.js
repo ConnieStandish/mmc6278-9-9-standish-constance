@@ -23,10 +23,6 @@ form.onsubmit = async e => {
         weatherSection.appendChild(errMessage)
     }
 }
-   
-    
-    
-
 
 function lineBreaks() {
     const p = document.createElement('p')
@@ -35,32 +31,19 @@ function lineBreaks() {
 }
 
 function renderWeatherData(weather) {
-    // const locHeader = document.createElement('h2')
     weatherSection.innerHTML = `<h2>${weather.name}, ${weather.sys.country}</h2>`
-    // weatherSection.appendChild(locHeader)
 
     const googleMaps = document.createElement('a')
-    // const lat = weather.coord.lat
-    // const lon = weather.coord.lon
     googleMaps.href = `https://www.google.com/maps/search/?api=1&query=${weather.coord.lat},${weather.coord.lon}`
     googleMaps.textContent = 'Click to view map'
     weatherSection.appendChild(googleMaps)
 
     const icon = document.createElement('img')
-    // const iconCode = weather['weather'][0]['icon']
     icon.src = `https://openweathermap.org/img/wn/${weather.weather[0].icon}@2x.png`
     icon.alt = weather['weather'][0]['description']
     weatherSection.appendChild(icon)
 
-    // const desc1 = weather['weather'][0]['description']
-    // const arr = desc1.split(' ')
-    // for (let i = 0; i < arr.length; i++) {
-    //     arr[i] = arr[i].charAt(0).toUpperCase() + arr[i].slice(1)
-    // }
-    // const desc2 = arr.join(' ')
     const description = document.createElement('p')
-    // description.textContent = desc2
-    
     description.textContent = weather.weather[0].description
     description.style.textTransform = 'capitalize'
     weatherSection.appendChild(description)
