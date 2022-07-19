@@ -30,36 +30,36 @@ const lineBreaks = () => {
     weatherSection.appendChild(p)
 }
 
-const renderWeatherData = (weather) => {
+const renderWeatherData = ({name, sys, coord, weather, main, dt}) => {
 
-    weatherSection.innerHTML = `<h2>${weather.name}, ${weather.sys.country}</h2>`
+    weatherSection.innerHTML = `<h2>${name}, ${sys.country}</h2>`
 
     const googleMaps = document.createElement('a')
-    googleMaps.href = `https://www.google.com/maps/search/?api=1&query=${weather.coord.lat},${weather.coord.lon}`
+    googleMaps.href = `https://www.google.com/maps/search/?api=1&query=${coord.lat},${coord.lon}`
     googleMaps.textContent = 'Click to view map'
     weatherSection.appendChild(googleMaps)
 
     const icon = document.createElement('img')
-    icon.src = `https://openweathermap.org/img/wn/${weather.weather[0].icon}@2x.png`
-    icon.alt = weather['weather'][0]['description']
+    icon.src = `https://openweathermap.org/img/wn/${weather[0].icon}@2x.png`
+    icon.alt = `${weather[0].description}`
     weatherSection.appendChild(icon)
 
     const description = document.createElement('p')
-    description.textContent = `${weather.weather[0].description}\n`
+    description.textContent = `${weather[0].description}`
     description.style.textTransform = 'capitalize'
     weatherSection.appendChild(description)
     lineBreaks()
 
     const currentTemp = document.createElement('p')
-    currentTemp.textContent = `Current: ${weather.main.temp}\u00B0 F`
+    currentTemp.textContent = `Current: ${main.temp}\u00B0 F`
     weatherSection.appendChild(currentTemp)
 
     const perceivedTemp = document.createElement('p')
-    perceivedTemp.textContent = `Feels like: ${weather.main.feels_like}\u00B0 F`
+    perceivedTemp.textContent = `Feels like: ${main.feels_like}\u00B0 F`
     weatherSection.appendChild(perceivedTemp)
     lineBreaks()
 
-    const time = weather.dt * 1000
+    const time = dt * 1000
     const date = new Date(time)
     const timeString = date.toLocaleTimeString('en-US', {
     hour: 'numeric',
